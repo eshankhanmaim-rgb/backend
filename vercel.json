@@ -1,12 +1,16 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
+      "source": "/api",
+      "destination": "/api/index.py?__vercel_path=/api"
     },
     {
-      "source": "/(.*)",
-      "destination": "/api"
+      "source": "/api/:path*",
+      "destination": "/api/index.py?__vercel_path=/api/:path*"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/api/index.py?__vercel_path=/:path*"
     }
   ]
 }

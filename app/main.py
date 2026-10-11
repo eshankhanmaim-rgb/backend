@@ -218,6 +218,15 @@ def create_app() -> FastAPI:
         return await call_next(request)
 
     # Routers
+    @app.get("/api", include_in_schema=False)
+    async def api_root():
+        return {
+            "status": "online",
+            "service": "Pruvate Auth API",
+            "version": "1.0.0",
+            "health": "/api/health",
+        }
+
     app.include_router(health.router)
     app.include_router(health.router, prefix="/api")
 
