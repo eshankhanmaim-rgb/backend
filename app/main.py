@@ -110,6 +110,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         response = await call_next(request)
         response.headers["X-Request-ID"] = request_id
         response.headers["X-Debug-Path"] = request.url.path
+        response.headers["X-Debug-Headers"] = ",".join(list(request.headers.keys())[:15])
         return response
 
 
