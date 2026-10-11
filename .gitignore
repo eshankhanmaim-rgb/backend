@@ -1,0 +1,40 @@
+# Environment variables and secrets
+.env
+config.env
+*.env
+*.env.*
+!.env.example
+serviceAccountKey.json
+*serviceAccountKey*.json
+*firebase-adminsdk*.json
+
+# Database & local data
+data/*.db
+*.db
+*.sqlite
+*.sqlite3
+
+# Python caches & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel output
+.vercel
