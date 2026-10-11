@@ -226,7 +226,7 @@ class RealtimeDatabaseAdapter(DatabaseAdapter):
                 "admin": False,
                 "banned": False,
                 "ban_reason": None,
-                "email_verified": (s.app_env == "development" and not bool(s.smtp_host)),
+                "email_verified": not bool(s.smtp_host),
                 "hwid": {
                     "combined_hash": None,
                     "components": [],

@@ -192,7 +192,7 @@ async def login(request: Request, body: LoginRequest, response: Response):
     if user.get("banned"):
         raise UserBanned(user.get("ban_reason", ""))
 
-    if not user.get("email_verified", False):
+    if not user.get("email_verified", False) and bool(s.smtp_host):
         raise EmailNotVerified()
 
     # TOTP check
