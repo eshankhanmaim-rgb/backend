@@ -109,6 +109,7 @@ class RequestIDMiddleware(BaseHTTPMiddleware):
         )
         response = await call_next(request)
         response.headers["X-Request-ID"] = request_id
+        response.headers["X-Debug-Path"] = request.url.path
         return response
 
 
@@ -219,10 +220,19 @@ def create_app() -> FastAPI:
 
     # Routers
     app.include_router(health.router)
+    app.include_router(health.router, prefix="/api")
+
+    # Standard /api/v1 prefix
     app.include_router(auth.router, prefix="/api/v1")
     app.include_router(client.router, prefix="/api/v1")
     app.include_router(loader.router, prefix="/api/v1")
     app.include_router(admin.router, prefix="/api/v1/admin")
+
+    # Support /v1 directly if Vercel serverless strips /api from request path
+    app.include_router(auth.router, prefix="/v1")
+    app.include_router(client.router, prefix="/v1")
+    app.include_router(loader.router, prefix="/v1")
+    app.include_router(admin.router, prefix="/v1/admin")
 
     # Optional bundled frontend SPA serving if static/index.html is present
     static_dir = BASE_DIR / "static"

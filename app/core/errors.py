@@ -123,7 +123,7 @@ async def http_exception_handler(request: Request, exc: StarletteHTTPException) 
         503: "SERVICE_UNAVAILABLE",
     }
     code = code_map.get(exc.status_code, "HTTP_ERROR")
-    return _err(code, str(exc.detail), exc.status_code)
+    return _err(code, f"{exc.detail} (path: {request.url.path})", exc.status_code)
 
 
 async def generic_exception_handler(request: Request, exc: Exception) -> JSONResponse:
